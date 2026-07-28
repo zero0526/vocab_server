@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: vocab-server
+
+
+server:
+  port: 8766
+
+anki:
+  - host: http://127.0.0.1/
+  - port: 8765
