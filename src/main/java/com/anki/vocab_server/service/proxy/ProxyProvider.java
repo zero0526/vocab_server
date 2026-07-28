@@ -1,11 +1,15 @@
 package com.anki.vocab_server.service.proxy;
 
+import com.anki.vocab_server.dtos.proxy.ProxyRequest;
+import com.anki.vocab_server.model.ProxyToken;
+
+import java.io.IOException;
+
 public interface ProxyProvider {
-    ProxySession acquire(ProxyRequest request);
 
-    void release(ProxySession session);
+    ProxySession acquire(ProxyRequest request) throws IOException;
 
-    boolean refresh(ProxySession session);
+    ProxySession rotate(ProxySession session) throws  IOException;
 
-    HealthStatus check(ProxySession session);
+    ProxyRequest checkStats(ProxyToken session) throws IOException;
 }
