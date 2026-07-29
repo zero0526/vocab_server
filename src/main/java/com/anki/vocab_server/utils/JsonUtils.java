@@ -5,7 +5,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonSerializer;
+import com.google.gson.JsonPrimitive;
+
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +23,14 @@ public class JsonUtils {
             .serializeNulls() // Includes null fields in JSON output
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX") // Standard ISO-8601 date format
             .disableHtmlEscaping() // Prevents converting <, >, &, etc. to Unicode
+            .registerTypeAdapter(LocalDate.class, (JsonSerializer<LocalDate>) (src, typeOfSrc, context) ->
+                    new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE)))
+            .registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (json, typeOfT, context) ->
+                    LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE))
+            .registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (src, typeOfSrc, context) ->
+                    new JsonPrimitive(src.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
+            .registerTypeAdapter(LocalDateTime.class, (JsonDeserializer<LocalDateTime>) (json, typeOfT, context) ->
+                    LocalDateTime.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME))
             .create();
 
     // Private constructor to prevent instantiation

@@ -27,6 +27,7 @@ public class PendingQueueEntry {
     private String word;
     private String lemma;
     private String dictionary;
+    private String pos;
     private String ipaUs;
     private String ipaUk;
     @Column("audio_url_us")
@@ -36,13 +37,12 @@ public class PendingQueueEntry {
     private List<String> decks;
     private List<String> topics;
     private List<WordSense> wordSenses;
-    private String inflectPlural;
     private String plural;
+    private String past;
     private String pastParticiple;
     private String presentParticiple;
     private String superlative;
     private String comparative;
-    private String thirdPerson;
     @Column("created_at")
     private LocalDate createdAt;
     @Column("approved_at")

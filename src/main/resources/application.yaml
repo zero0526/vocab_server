@@ -9,3 +9,6 @@ server:
 anki:
   - host: http://127.0.0.1/
   - port: 8765
+
+cambridge:
+  base-url: https://dictionary.cambridge.org/dictionary/english/

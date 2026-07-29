@@ -122,7 +122,6 @@ public class ProxyManager {
         if (tokenId != null) {
             activeSessions.remove(tokenId);
             sessionQueue.remove(tokenId);
-            initPool();
         }
     }
 
@@ -141,10 +140,12 @@ public class ProxyManager {
             proxyToken.setReason(reason);
             proxyTokenRepository.save(proxyToken);
         });
-        initPool();
     }
 
     public synchronized Proxy acquireRandom() {
+        if (activeSessions.isEmpty()) {
+            initPool();
+        }
         if (activeSessions.isEmpty()) {
             return null;
         }
@@ -157,6 +158,5 @@ public class ProxyManager {
         log.info("Refreshing Proxy Pool...");
         activeSessions.clear();
         sessionQueue.clear();
-        initPool();
     }
 }
